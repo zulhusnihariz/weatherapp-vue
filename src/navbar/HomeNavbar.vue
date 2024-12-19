@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ButtonAtom from '@/components/atoms/ButtonAtom.vue'
 import AccountIcon from '@/components/icons/AccountIcon.vue'
+import RouterLinkButton from '@/components/molecules/RouterLinkButton.vue'
 </script>
 
 <template>
@@ -8,11 +8,9 @@ import AccountIcon from '@/components/icons/AccountIcon.vue'
     <div class="header poppins-semibold">
       <h1>Weather</h1>
 
-      <RouterLink v-slot="{ navigate, isActive }" to="/profile" custom>
-        <ButtonAtom :on-click="navigate" :class="{ active: isActive }">
-          <AccountIcon />
-        </ButtonAtom>
-      </RouterLink>
+      <RouterLinkButton :to="'/profile'">
+        <AccountIcon />
+      </RouterLinkButton>
     </div>
   </header>
 </template>

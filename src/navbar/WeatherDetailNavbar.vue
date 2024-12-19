@@ -1,18 +1,26 @@
 <script setup lang="ts">
 import ButtonAtom from '@/components/atoms/ButtonAtom.vue'
 import AddIcon from '@/components/icons/AddIcon.vue'
+import BackArrowIcon from '@/components/icons/BackArrowIcon.vue'
+import RouterLinkButton from '@/components/molecules/RouterLinkButton.vue'
+
+function addWeather() {
+  console.log('add weather')
+}
 </script>
 
 <template>
   <header>
     <div class="header poppins-semibold">
-      <RouterLink v-slot="{ navigate, isActive }" to="/" custom>
-        <ButtonAtom :on-click="navigate" :class="{ active: isActive }">
-          <AddIcon />
-        </ButtonAtom>
-      </RouterLink>
+      <RouterLinkButton to="/">
+        <BackArrowIcon />
+      </RouterLinkButton>
 
       <h1>Bangsar South, KL</h1>
+
+      <ButtonAtom v-on:click="addWeather">
+        <AddIcon />
+      </ButtonAtom>
     </div>
   </header>
 </template>

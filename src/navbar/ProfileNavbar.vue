@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import ButtonAtom from '@/components/atoms/ButtonAtom.vue'
 import BackArrowIcon from '@/components/icons/BackArrowIcon.vue'
+import RouterLinkButton from '@/components/molecules/RouterLinkButton.vue'
 </script>
 
 <template>
   <header>
     <div class="header poppins-semibold">
-      <RouterLink v-slot="{ navigate, isActive }" to="/" custom>
-        <ButtonAtom :on-click="navigate" :class="{ active: isActive }">
-          <BackArrowIcon />
-        </ButtonAtom>
-      </RouterLink>
+      <RouterLinkButton :to="'/'">
+        <BackArrowIcon />
+      </RouterLinkButton>
       <h1>Edit Profile</h1>
     </div>
   </header>
