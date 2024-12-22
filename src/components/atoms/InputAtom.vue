@@ -1,12 +1,17 @@
 <script setup lang="ts">
+import { useAttrs } from 'vue'
+
 interface Props {
-  disabled: boolean
+  onFocus?: () => void
 }
 
-const props = defineProps<Props>()
+const { onFocus } = defineProps<Props>()
+
+const attrs = useAttrs()
 const text = defineModel<string>()
 </script>
 
 <template>
-  <input v-model="text" :disabled="props.disabled" />
+  <slot></slot>
+  <input v-model="text" v-bind="attrs" @focus="onFocus" />
 </template>

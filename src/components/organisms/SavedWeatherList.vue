@@ -16,7 +16,12 @@ async function viewWeatherDetails(weather: WeatherResponse) {
 
 <template>
   <ul>
-    <li v-for="weather in weathers" :key="weather.id" @click="() => viewWeatherDetails(weather)">
+    <li
+      v-for="weather in weathers"
+      :key="weather.id"
+      @click="() => viewWeatherDetails(weather)"
+      style="list-style: none"
+    >
       <SavedWeatherCard :weather="weather" />
     </li>
   </ul>
