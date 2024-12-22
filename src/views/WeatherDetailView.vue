@@ -9,9 +9,9 @@ import type { Forecast } from '@/types/forecast'
 import { formatDate } from '@/utils/date-formatter'
 import { splitter } from '@/utils/string-formatter'
 import { computed, onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { onBeforeRouteLeave, useRoute } from 'vue-router'
 
-const { loading, getWeather, getForecast } = useWeather()
+const { loading, getWeather, getForecast, resetWeather } = useWeather()
 const route = useRoute()
 
 const weather = await getWeather({
@@ -51,6 +51,10 @@ onMounted(() => {
 
 const hasWeatherData = computed(() => {
   return weather && weather.weather && weather.weather.length > 0
+})
+
+onBeforeRouteLeave(() => {
+  resetWeather()
 })
 
 function selectDay(day: Forecast) {
