@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import CityList from '@/components/organisms/CityList.vue'
+import SavedWeatherList from '@/components/organisms/SavedWeatherList.vue'
+import SearchCityInputField from '@/components/organisms/SearchCityInputField.vue'
+import HomeNavbar from '@/navbar/HomeNavbar.vue'
 </script>
 <template>
-  <CityList />
+  <HomeNavbar />
+  <SearchCityInputField />
+  <SavedWeatherList />
 </template>
