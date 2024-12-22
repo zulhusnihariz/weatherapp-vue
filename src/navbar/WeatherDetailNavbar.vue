@@ -2,11 +2,14 @@
 import ButtonAtom from '@/components/atoms/ButtonAtom.vue'
 import AddIcon from '@/components/icons/AddIcon.vue'
 import BackArrowIcon from '@/components/icons/BackArrowIcon.vue'
+import TrashIcon from '@/components/icons/TrashIcon.vue'
 import RouterLinkButton from '@/components/molecules/RouterLinkButton.vue'
+import useWeather from '@/store/weather'
+import { useRoute } from 'vue-router'
 
-function addWeather() {
-  console.log('add weather')
-}
+const { isWeatherSaved, saveWeather, discardWeather, getWeather } = useWeather()
+const route = useRoute()
+const weather = await getWeather({ id: route.params.id as string, units: 'metric' })
 </script>
 
 <template>
@@ -16,11 +19,19 @@ function addWeather() {
         <BackArrowIcon />
       </RouterLinkButton>
 
-      <h1>Bangsar South, KL</h1>
+      <h1>{{ weather.name }}</h1>
 
-      <ButtonAtom v-on:click="addWeather">
-        <AddIcon />
-      </ButtonAtom>
+      <template v-if="isWeatherSaved">
+        <ButtonAtom v-on:click="discardWeather">
+          <TrashIcon />
+        </ButtonAtom>
+      </template>
+
+      <template v-else>
+        <ButtonAtom v-on:click="saveWeather">
+          <AddIcon />
+        </ButtonAtom>
+      </template>
     </div>
   </header>
 </template>
