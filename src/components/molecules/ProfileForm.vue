@@ -1,43 +1,43 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import useProfile from '@/store/profile'
+import type { Profile } from '@/types/profile'
+import { onMounted, ref } from 'vue'
 import ButtonAtom from '../atoms/ButtonAtom.vue'
 import FormAtom from '../atoms/FormAtom.vue'
 import InputAtom from '../atoms/InputAtom.vue'
 import LabelAtom from '../atoms/LabelAtom.vue'
 
-interface Profile {
-  fullName: string
-  email: string
-  phoneNumber: string
-}
-
-const profile = ref<Profile>({
-  fullName: '',
-  email: '',
-  phoneNumber: '',
-})
+const { getProfile, setProfile } = useProfile()
 
 const inputDisabled = ref<boolean>(true)
+
+const profile = getProfile()
+const input = ref<Profile>(profile)
 
 function toggleEdit() {
   inputDisabled.value = !inputDisabled.value
 }
 
-function submitProfile() {
-  console.log(profile.value)
+function saveProfile() {
+  setProfile(input.value)
+  toggleEdit()
 }
+
+onMounted(() => {
+  getProfile()
+})
 </script>
 
 <template>
   <FormAtom>
     <LabelAtom title="Full Name" />
-    <InputAtom v-model="profile.fullName" :disabled="inputDisabled" />
+    <InputAtom v-model="input.fullName" :disabled="inputDisabled" />
 
     <LabelAtom title="Email" />
-    <InputAtom v-model="profile.email" :disabled="inputDisabled" />
+    <InputAtom v-model="input.email" :disabled="inputDisabled" />
 
     <LabelAtom title="Phone Number" />
-    <InputAtom v-model="profile.phoneNumber" :disabled="inputDisabled" />
+    <InputAtom v-model="input.phoneNumber" :disabled="inputDisabled" />
 
     <ButtonAtom
       v-if="inputDisabled"
@@ -50,7 +50,7 @@ function submitProfile() {
       v-if="!inputDisabled"
       class="profile-action-button"
       title="Submit"
-      :on-click="submitProfile"
+      :on-click="saveProfile"
     />
   </FormAtom>
 </template>

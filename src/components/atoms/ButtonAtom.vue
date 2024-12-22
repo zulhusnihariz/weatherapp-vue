@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Props {
   title?: string
-  onClick: () => void
+  onClick?: () => void
 }
 
 const props = defineProps<Props>()
