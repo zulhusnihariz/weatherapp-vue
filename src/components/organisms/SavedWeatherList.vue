@@ -1,20 +1,23 @@
 <script setup lang="ts">
 import useWeather from '@/store/weather'
-import RouterLinkButton from '../molecules/RouterLinkButton.vue'
+import type { WeatherResponse } from '@/types/weather'
+import { useRouter } from 'vue-router'
 import SavedWeatherCard from '../molecules/SavedWeatherCard.vue'
 
-const { getSavedWeather } = useWeather()
+const { setWeather, getSavedWeather } = useWeather()
 const weathers = getSavedWeather()
+const router = useRouter()
+
+async function viewWeatherDetails(weather: WeatherResponse) {
+  setWeather({ weather })
+  router.push({ path: `/weather/${weather.id}` })
+}
 </script>
 
 <template>
   <ul>
-    <li v-for="weather in weathers" :key="weather.id">
-      <p v-if="weather.name">
-        <RouterLinkButton :to="`/weather/${weather.id}`">
-          <SavedWeatherCard :weather="weather" />
-        </RouterLinkButton>
-      </p>
+    <li v-for="weather in weathers" :key="weather.id" @click="() => viewWeatherDetails(weather)">
+      <SavedWeatherCard :weather="weather" />
     </li>
   </ul>
 </template>

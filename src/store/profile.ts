@@ -4,7 +4,7 @@ import type { Profile } from '@/types/profile'
 import { computed, ref } from 'vue'
 
 const initial: Profile = { fullName: "", email: '', phoneNumber: "", }
-const state = ref<Profile>(initial)
+const state = ref<Profile>(structuredClone(initial))
 
 export default function useProfile() {
   const loading = ref(false)

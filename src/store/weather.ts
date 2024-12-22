@@ -23,7 +23,7 @@ const useDummy = Boolean(import.meta.env.VITE_DUMMY_DATA == 'true')
 console.log('dummy data', useDummy)
 
 const savedWeather = ref<WeatherResponse[]>([])
-const state = ref(initial)
+const state = ref(structuredClone(initial))
 
 export default function useWeather() {
   const loading = ref(false)
@@ -35,8 +35,6 @@ export default function useWeather() {
   }
 
   async function getWeather(options: OpenWeatherQuery): Promise<WeatherResponse> {
-
-
     if (!isEmptyObject(state.value.weather)) {
       return state.value.weather
     }
@@ -131,6 +129,12 @@ export default function useWeather() {
     return savedWeather.value
   }
 
+  function resetWeather() {
+    console.log("before", state.value)
+    state.value = structuredClone(initial)
+    console.log("after", state.value)
+  }
+
   return {
     loading: computed(() => loading.value),
     error: computed(() => error.value),
@@ -144,5 +148,6 @@ export default function useWeather() {
     getForecast,
     getSavedWeather,
     discardWeather,
+    resetWeather
   }
 }
