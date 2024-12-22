@@ -20,6 +20,10 @@ const router = createRouter({
       name: 'weather',
       component: () => import("@/views/WeatherDetailView.vue"),
     },
+    {
+      path: "/:catchAll(.*)",
+      component: () => import("@/views/404View.vue"),
+    }
   ]
   ,
 })
