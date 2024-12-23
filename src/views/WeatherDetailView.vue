@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import OpenWeatherIconAtom from '@/components/atoms/OpenWeatherIconAtom.vue'
-import TemperatureAtom from '@/components/atoms/TemperatureAtom.vue'
+import MainWeatherCard from '@/components/molecules/MainWeatherCard.vue'
 import HourlyForecastList from '@/components/organisms/HourlyForecastList.vue'
 import WeeklyForecastList from '@/components/organisms/WeeklyForecastList.vue'
 import WeatherDetailNavbar from '@/navbar/WeatherDetailNavbar.vue'
 import useWeather from '@/store/weather'
 import type { Forecast } from '@/types/forecast'
-import { formatDate } from '@/utils/date-formatter'
 import { splitter } from '@/utils/string-formatter'
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { onBeforeRouteLeave, useRoute } from 'vue-router'
 
 const { loading, getWeather, getForecast, resetWeather } = useWeather()
@@ -49,10 +47,6 @@ onMounted(() => {
   hourly.value = transformed.value[dates[0]]
 })
 
-const hasWeatherData = computed(() => {
-  return weather && weather.weather && weather.weather.length > 0
-})
-
 onBeforeRouteLeave(() => {
   resetWeather()
 })
@@ -60,32 +54,37 @@ onBeforeRouteLeave(() => {
 function selectDay(day: Forecast) {
   let [date, _] = splitter(day.dt_txt, ' ')
   hourly.value = transformed.value[date]
+
+  document.getElementById('scrollHere')?.scrollIntoView({
+    behavior: 'smooth',
+  })
 }
 </script>
 <template>
-  <WeatherDetailNavbar v-if="route.path.startsWith('/weather/') && route.params?.id" />
-  <template v-if="loading"> Loading... </template>
-
-  <template v-else>
-    <div>
-      <p>{{ formatDate(weather.dt) }}</p>
-      <TemperatureAtom :temp="weather.main.temp" />
-
-      <template v-if="hasWeatherData">
-        <OpenWeatherIconAtom
-          :icon="weather.weather[0].icon"
-          :alt="weather.weather[0].description"
-        />
-        <p>{{ weather.weather[0].description }}</p>
-      </template>
+  <div class="layout">
+    <div class="navbar-container">
+      <WeatherDetailNavbar v-if="route.path.startsWith('/weather/') && route.params?.id" />
+      <MainWeatherCard :weather="weather" v-if="!loading" />
     </div>
+    <div id="scrollHere"></div>
+    <template v-if="loading"> Loading... </template>
 
-    <div v-if="hourly">
-      <HourlyForecastList :forecasts="hourly" />
-    </div>
-
-    <div v-if="weekly">
-      <WeeklyForecastList :forecasts="weekly" :on-click="selectDay" />
-    </div>
-  </template>
+    <template v-else>
+      <div style="margin: 0 20px">
+        <HourlyForecastList :forecasts="hourly" v-if="hourly" />
+        <WeeklyForecastList :forecasts="weekly" :on-click="selectDay" v-if="weekly" />
+      </div>
+    </template>
+  </div>
 </template>
+
+<style scoped>
+.layout {
+  width: 100vw;
+  margin: 0px;
+}
+.navbar-container {
+  background: linear-gradient(118.25deg, #4f80fa 1.2%, #3764d7 59.26%, #335fd1 79.2%);
+  width: 100vw;
+}
+</style>

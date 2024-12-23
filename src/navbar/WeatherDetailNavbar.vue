@@ -16,19 +16,19 @@ const weather = await getWeather({ id: route.params.id as string, units: 'metric
   <header>
     <div class="header poppins-semibold">
       <RouterLinkButton to="/">
-        <BackArrowIcon />
+        <BackArrowIcon :fill="'white'" />
       </RouterLinkButton>
 
-      <h1>{{ weather.name }}</h1>
+      <p>{{ weather.name }}</p>
 
       <template v-if="isWeatherSaved">
-        <ButtonAtom v-on:click="discardWeather">
+        <ButtonAtom v-on:click="discardWeather" class="action-button">
           <TrashIcon />
         </ButtonAtom>
       </template>
 
       <template v-else>
-        <ButtonAtom v-on:click="saveWeather">
+        <ButtonAtom v-on:click="saveWeather" class="action-button">
           <AddIcon />
         </ButtonAtom>
       </template>
@@ -37,19 +37,25 @@ const weather = await getWeather({ id: route.params.id as string, units: 'metric
 </template>
 
 <style scoped>
+.action-button {
+  background: none;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  outline: inherit;
+}
 .header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  padding: 20px 0;
-  background: #f4f7fc;
-  height: 25vh;
-  clip-path: ellipse(120% 60% at 50% 40%);
+  width: 100%;
+  height: min-content;
   font-family: 'Poppins';
-  font-weight: 600;
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
+  padding: 20px;
+  color: white;
 }
 
 .back-button {

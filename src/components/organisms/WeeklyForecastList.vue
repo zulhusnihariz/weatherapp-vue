@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { Forecast } from '@/types/forecast'
-import { getLongDay } from '@/utils/date-formatter'
-import OpenWeatherIconAtom from '../atoms/OpenWeatherIconAtom.vue'
-import TemperatureAtom from '../atoms/TemperatureAtom.vue'
+import WeeklyWeatherCard from '../molecules/WeeklyWeatherCard.vue'
 
 interface Props {
   forecasts: Forecast[]
@@ -16,12 +14,21 @@ const { forecasts } = defineProps<Props>()
   <h2>Weekly Forecast</h2>
   <ul style="display: flex; overflow-y: hidden; overflow: hidden; overflow-x: scroll">
     <li v-for="forecast in forecasts" :key="`${forecast.dt_txt}`" @click="() => onClick(forecast)">
-      <OpenWeatherIconAtom
-        :icon="forecast.weather[0].icon"
-        :alt="forecast.weather[0].description"
-      />
-      <p>{{ getLongDay(new Date(forecast.dt_txt)) }}</p>
-      <TemperatureAtom :temp="forecast.main.temp" />
+      <WeeklyWeatherCard :forecast="forecast" />
     </li>
   </ul>
 </template>
+
+<style scoped>
+h2 {
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+</style>
