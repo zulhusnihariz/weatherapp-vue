@@ -79,6 +79,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: var(--vt-c-black-soft); */
 }
 
 p,
@@ -88,7 +89,11 @@ li {
   margin: 0;
 }
 
-textarea,
 input {
+  /* padding: 0;
   outline: none;
+  border-style: none;
+  height: 39px;
+  width: 100%;
+  max-width: 343px; */
 }
