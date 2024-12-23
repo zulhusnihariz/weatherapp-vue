@@ -35,6 +35,7 @@ declare module 'vue' {
     SearchCityInputField: typeof import('./src/components/organisms/SearchCityInputField.vue')['default']
     SearchIcon: typeof import('./src/components/icons/SearchIcon.vue')['default']
     TemperatureAtom: typeof import('./src/components/atoms/TemperatureAtom.vue')['default']
+    Toast: typeof import('primevue/toast')['default']
     TrashIcon: typeof import('./src/components/icons/TrashIcon.vue')['default']
     UploadImageIcon: typeof import('./src/components/icons/UploadImageIcon.vue')['default']
     WeeklyForecastList: typeof import('./src/components/organisms/WeeklyForecastList.vue')['default']

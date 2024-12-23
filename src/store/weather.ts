@@ -1,6 +1,7 @@
 import localstorage from '@/adapter/local-storage'
 import dummyForecast from '@/data/default-forecast.json'
 import dummyWeather from '@/data/default-weather.json'
+import { setToastEvent } from '@/main'
 import { fetchForecast, fetchWeather } from '@/repositories/weather'
 import type { ApiResponse, OpenWeatherQuery } from '@/types/api'
 import type { ForecastResponse } from '@/types/forecast'
@@ -20,8 +21,6 @@ const initial = {
 } as WeatherDetails
 
 const useDummy = Boolean(import.meta.env.VITE_DUMMY_DATA == 'true')
-console.log('dummy data', useDummy)
-
 const savedWeather = ref<WeatherResponse[]>([])
 const state = ref(structuredClone(initial))
 
@@ -42,14 +41,9 @@ export default function useWeather() {
     loading.value = true
 
     if (useDummy) {
-      let { data, error: err }: ApiResponse<WeatherResponse> = {
+      let { data }: ApiResponse<WeatherResponse> = {
         data: dummyWeather,
         error: undefined,
-      }
-
-      if (err !== undefined) {
-        error.value = err
-        return initial.weather
       }
 
       setWeather({ weather: data })
@@ -62,6 +56,7 @@ export default function useWeather() {
 
     if (err !== undefined) {
       error.value = err
+      setToastEvent({ severity: 'error', summary: err.message, life: 3000 })
       return initial.weather
     }
 
@@ -80,15 +75,11 @@ export default function useWeather() {
     loading.value = true
 
     if (useDummy) {
-      let { data, error: err }: ApiResponse<ForecastResponse> = {
+      let { data }: ApiResponse<ForecastResponse> = {
         data: dummyForecast as ForecastResponse,
         error: undefined,
       }
 
-      if (err !== undefined) {
-        error.value = err
-        return initial.forecast
-      }
       setWeather({ forecast: data })
       loading.value = false
       return state.value.forecast
@@ -97,6 +88,7 @@ export default function useWeather() {
     const { data, error: err } = await fetchForecast(options)
     if (err !== undefined) {
       error.value = err
+      setToastEvent({ severity: 'error', summary: err.message, life: 3000 })
       return initial.forecast
     }
 
@@ -109,11 +101,13 @@ export default function useWeather() {
   function saveWeather() {
     savedWeather.value = [...savedWeather.value, state.value.weather]
     localstorage.setItem<WeatherResponse[]>(LS_KEY.WEATHER, savedWeather.value)
+    setToastEvent({ "severity": "success", summary: "Weather Saved", life: 3000 })
   }
 
   function discardWeather() {
     savedWeather.value = savedWeather.value.filter((el) => el.id !== state.value.weather.id)
     localstorage.setItem<WeatherResponse[]>(LS_KEY.WEATHER, savedWeather.value)
+    setToastEvent({ "severity": "warn", summary: "Weather Removed", life: 3000 })
   }
 
   function getSavedWeather(): WeatherResponse[] {
@@ -130,9 +124,7 @@ export default function useWeather() {
   }
 
   function resetWeather() {
-    console.log("before", state.value)
     state.value = structuredClone(initial)
-    console.log("after", state.value)
   }
 
   return {
