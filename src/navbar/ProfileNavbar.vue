@@ -4,30 +4,32 @@ import RouterLinkButton from '@/components/molecules/RouterLinkButton.vue'
 </script>
 
 <template>
-  <header>
-    <div class="header poppins-semibold">
-      <RouterLinkButton :to="'/'">
-        <BackArrowIcon />
-      </RouterLinkButton>
-      <h1>Edit Profile</h1>
-    </div>
+  <header class="header">
+    <RouterLinkButton :to="'/'" style="float: left; position: absolute; left: 0">
+      <BackArrowIcon />
+    </RouterLinkButton>
+    <h2>Edit Profile</h2>
   </header>
 </template>
 
 <style scoped>
 .header {
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 20px 0;
-  background: #f4f7fc;
-  height: 25vh;
-  clip-path: ellipse(120% 60% at 50% 40%);
+  align-items: center;
+  width: 100%;
+  height: min-content;
   font-family: 'Poppins';
   font-weight: 600;
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
+  margin: 10px 0;
+}
+.header-content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  width: 100%;
 }
 
 .back-button {
