@@ -3,15 +3,15 @@ import { LS_KEY } from '@/types/local-storage'
 import type { Profile } from '@/types/profile'
 import { computed, ref } from 'vue'
 
-const initial: Profile = { fullName: "", email: '', phoneNumber: "", }
-const state = ref<Profile>(structuredClone(initial))
+const initial: Profile = { fullName: "", email: '', phoneNumber: "", imageBase64: '' }
+const state = ref(structuredClone(initial))
 
 export default function useProfile() {
   const loading = ref(false)
 
-  function setProfile(data: Profile) {
-    state.value = data
-    localStorage.setItem<Profile>(LS_KEY.PROFILE, data)
+  function setProfile(data: Partial<Profile>) {
+    state.value = { ...state.value, ...data }
+    localStorage.setItem<Profile>(LS_KEY.PROFILE, state.value)
   }
 
   function getProfile(): Profile {
@@ -19,7 +19,6 @@ export default function useProfile() {
 
     if (profile === null) {
       localStorage.setItem<Profile>(LS_KEY.PROFILE, initial)
-      state.value = initial
       return state.value
     }
 
