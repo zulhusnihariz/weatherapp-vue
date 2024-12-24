@@ -3,6 +3,7 @@ import dayBg from '@/assets/day.png'
 import nightBg from '@/assets/night.png'
 import type { WeatherResponse } from '@/types/weather'
 import { formatAMPM } from '@/utils/date-formatter'
+import { parseTime } from '@/utils/string-formatter'
 import { onMounted } from 'vue'
 import TemperatureAtom from '../atoms/TemperatureAtom.vue'
 
@@ -18,10 +19,14 @@ onMounted(() => {
 
 function getImageUrl(date: Date): string {
   let formatted = formatAMPM(date)
-  if (formatted.endsWith('PM')) {
-    return nightBg
-  } else {
+
+  const start = parseTime('7:00 AM')
+  const end = parseTime('7:00 PM')
+  const input = parseTime(formatted)
+  if (input >= start && input <= end) {
     return dayBg
+  } else {
+    return nightBg
   }
 }
 </script>
