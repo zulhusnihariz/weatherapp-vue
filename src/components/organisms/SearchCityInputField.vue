@@ -36,7 +36,12 @@ async function searchCityWeather(e: AutoCompleteOptionSelectEvent) {
 <template>
   <span class="p-input-icon-left" :style="isSearching ? 'margin-top:50px' : ''">
     <i class="pi pi-search" />
-    <i v-if="isSearching" class="pi pi-times-circle" @click="stopSearching" />
+    <i
+      v-if="isSearching"
+      class="pi pi-times-circle"
+      @click="stopSearching"
+      aria-lable="cancel search"
+    />
     <AutoComplete
       v-model="search"
       placeholder="Search for a city"

@@ -11,7 +11,7 @@ const { cities } = defineProps<Props>()
 
 <template>
   <ul v-for="city in cities" :key="city.id">
-    <li v-on:click="() => clickItem(city)">
+    <li @click="() => clickItem(city)" aria-label="view weather details">
       {{ city.name }}
     </li>
   </ul>

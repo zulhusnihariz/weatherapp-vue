@@ -28,7 +28,7 @@ async function refresh() {
 
       <p class="last-update">
         Last Update:<time> {{ formatAMPM(weather.dt) }} </time>
-        <RefreshIcon @click="refresh" />
+        <RefreshIcon @click="refresh" aria-label="refresh weather details" />
       </p>
     </template>
   </section>

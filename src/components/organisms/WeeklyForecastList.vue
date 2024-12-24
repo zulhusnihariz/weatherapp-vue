@@ -13,7 +13,12 @@ const { forecasts } = defineProps<Props>()
 <template>
   <h2>Weekly Forecast</h2>
   <ul style="display: flex; overflow-y: hidden; overflow: hidden; overflow-x: scroll">
-    <li v-for="forecast in forecasts" :key="`${forecast.dt_txt}`" @click="() => onClick(forecast)">
+    <li
+      v-for="forecast in forecasts"
+      :key="`${forecast.dt_txt}`"
+      @click="() => onClick(forecast)"
+      aria-label="update hourly forecast"
+    >
       <WeeklyWeatherCard :forecast="forecast" />
     </li>
   </ul>

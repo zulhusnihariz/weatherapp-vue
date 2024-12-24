@@ -22,7 +22,7 @@ const { to } = defineProps<Props>()
       outline: inherit;
     "
   >
-    <ButtonAtom v-on:click="navigate" :class="{ active: isActive }">
+    <ButtonAtom @click="navigate" :class="{ active: isActive }">
       <slot></slot>
     </ButtonAtom>
   </RouterLink>

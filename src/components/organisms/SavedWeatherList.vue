@@ -21,6 +21,7 @@ async function viewWeatherDetails(weather: WeatherResponse) {
       :key="weather.id"
       @click="() => viewWeatherDetails(weather)"
       style="list-style: none"
+      aria-label="view saved weather"
     >
       <SavedWeatherCard
         :weather="weather"

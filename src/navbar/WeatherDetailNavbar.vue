@@ -32,13 +32,13 @@ function remove() {
     <p>{{ weather.name }}</p>
 
     <template v-if="isWeatherSaved">
-      <ButtonAtom @click="remove" class="action-button">
+      <ButtonAtom @click="remove" class="action-button" aria-label="remove saved weather">
         <TrashIcon />
       </ButtonAtom>
     </template>
 
     <template v-else>
-      <ButtonAtom @click="save" class="action-button">
+      <ButtonAtom @click="save" class="action-button" aria-label="save weather">
         <AddIcon />
       </ButtonAtom>
     </template>
