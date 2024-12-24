@@ -57,6 +57,7 @@ export default function useWeather() {
     if (err !== undefined) {
       error.value = err
       setToastEvent({ severity: 'error', summary: err.message, life: 3000 })
+      loading.value = false
       return initial.weather
     }
 
@@ -89,6 +90,7 @@ export default function useWeather() {
     if (err !== undefined) {
       error.value = err
       setToastEvent({ severity: 'error', summary: err.message, life: 3000 })
+      loading.value = false
       return initial.forecast
     }
 

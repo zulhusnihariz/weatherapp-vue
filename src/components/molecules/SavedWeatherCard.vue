@@ -35,7 +35,9 @@ function getImageUrl(date: Date): string {
       style="display: flex; justify-content: space-between; width: 100%; align-items: flex-start"
     >
       <div>
-        <h1 style="font-weight: bold">{{ weather.name }}</h1>
+        <h1 :class="weather.name.length < 15 ? 'dynamic-text-lg' : 'dynamic-text-md'">
+          {{ weather.name }}
+        </h1>
         <p>{{ formatAMPM(new Date(weather.dt * 1000)) }}</p>
       </div>
       <TemperatureAtom :temp="weather.main.temp" style="font-size: xx-large" />
@@ -60,6 +62,12 @@ function getImageUrl(date: Date): string {
 </template>
 
 <style>
+.dynamic-text-lg {
+  font-size: 30px;
+}
+.dynamic-text-md {
+  font-size: 18px;
+}
 .saved-container {
   display: flex;
   flex-direction: column;
@@ -74,6 +82,7 @@ function getImageUrl(date: Date): string {
   border-radius: 20px;
   font-weight: 400;
   cursor: pointer;
+  margin-bottom: 15px;
   /* font-family: 'SF Pro Display'; */
 }
 </style>
