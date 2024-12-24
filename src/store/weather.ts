@@ -23,6 +23,7 @@ const initial = {
 const useDummy = Boolean(import.meta.env.VITE_DUMMY_DATA == 'true')
 const savedWeather = ref<WeatherResponse[]>([])
 const state = ref(structuredClone(initial))
+const myLocation = ref({ lon: 0, lat: 0 })
 
 export default function useWeather() {
   const loading = ref(false)
@@ -121,6 +122,10 @@ export default function useWeather() {
     }
   }
 
+  function isMyLocation(lon: number, lat: number) {
+    return lon.toFixed(2) == myLocation.value.lon.toFixed(2) && lat.toFixed(2) == myLocation.value.lat.toFixed(2)
+  }
+
   function isMyLocationSaved(lon: number, lat: number) {
     const saved = getSavedWeather()
     if (saved.length == 0) {
@@ -134,8 +139,8 @@ export default function useWeather() {
     return index === -1 ? false : true
   }
 
-
   async function saveMyLocation(lat: number, lon: number): Promise<void> {
+    myLocation.value = { lat, lon }
     if (isMyLocationSaved(lon, lat)) return
 
     const weather = await getWeather({ lat, lon, units: 'metric' })
@@ -176,6 +181,6 @@ export default function useWeather() {
     resetWeather,
     saveMyLocation,
     refreshWeather,
-    isMyLocationSaved
+    isMyLocation,
   }
 }

@@ -9,6 +9,7 @@ import TemperatureAtom from '../atoms/TemperatureAtom.vue'
 
 interface Props {
   weather: WeatherResponse
+  isMyLocation: boolean
 }
 
 const { weather } = defineProps<Props>()
@@ -40,10 +41,18 @@ function getImageUrl(date: Date): string {
   >
     <div class="top-info">
       <div>
-        <h1 :class="weather.name.length < 15 ? 'dynamic-text-lg' : 'dynamic-text-md'">
-          {{ weather.name }}
-        </h1>
-        <p>{{ formatAMPM(new Date(weather.dt * 1000)) }}</p>
+        <template v-if="isMyLocation">
+          <h1 class="my-location">My Location</h1>
+          <p :class="weather.name.length < 15 ? 'dynamic-text-lg' : 'dynamic-text-md'">
+            {{ weather.name }}
+          </p>
+        </template>
+        <template v-else>
+          <h1 :class="weather.name.length < 15 ? 'dynamic-text-lg' : 'dynamic-text-md'">
+            {{ weather.name }}
+          </h1>
+          <p>{{ formatAMPM(new Date(weather.dt * 1000)) }}</p>
+        </template>
       </div>
       <TemperatureAtom :temp="weather.main.temp" style="font-size: xx-large" />
     </div>
@@ -67,6 +76,15 @@ function getImageUrl(date: Date): string {
 </template>
 
 <style>
+.my-location {
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 29.83px;
+  letter-spacing: -0.01em;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
 .dynamic-text-lg {
   font-size: 30px;
 }
