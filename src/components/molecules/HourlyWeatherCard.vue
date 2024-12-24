@@ -18,7 +18,7 @@ const { forecast } = defineProps<Props>()
       class="weather-icon"
     />
     <TemperatureAtom :temp="forecast.main.temp" class="temp" />
-    {{ formatAMPM(new Date(forecast.dt_txt)) }}
+    {{ formatAMPM(forecast.dt) }}
   </div>
 </template>
 <style>

@@ -8,6 +8,7 @@ import type { Forecast } from '@/types/forecast'
 import { splitter } from '@/utils/string-formatter'
 import { onMounted, ref } from 'vue'
 import { onBeforeRouteLeave, useRoute } from 'vue-router'
+import LoadingView from './LoadingView.vue'
 
 const { loading, getWeather, getForecast, resetWeather } = useWeather()
 const route = useRoute()
@@ -61,6 +62,7 @@ function selectDay(day: Forecast) {
 }
 </script>
 <template>
+  <LoadingView #fallback />
   <div class="layout">
     <div class="navbar-container">
       <WeatherDetailNavbar v-if="route.path.startsWith('/weather/') && route.params?.id" />

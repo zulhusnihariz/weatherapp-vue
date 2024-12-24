@@ -27,7 +27,7 @@ async function refresh() {
       <p class="weather-description">{{ weather.weather[0].description }}</p>
 
       <div class="last-update">
-        <p>Last Update: {{ formatAMPM(new Date(weather.dt * 1000)) }}</p>
+        <p>Last Update: {{ formatAMPM(weather.dt) }}</p>
         <RefreshIcon @click="refresh" />
       </div>
     </template>

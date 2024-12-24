@@ -4,7 +4,6 @@ import nightBg from '@/assets/night.png'
 import type { WeatherResponse } from '@/types/weather'
 import { formatAMPM } from '@/utils/date-formatter'
 import { parseTime } from '@/utils/string-formatter'
-import { onMounted } from 'vue'
 import TemperatureAtom from '../atoms/TemperatureAtom.vue'
 
 interface Props {
@@ -14,12 +13,8 @@ interface Props {
 
 const { weather } = defineProps<Props>()
 
-onMounted(() => {
-  getImageUrl(new Date(weather.dt))
-})
-
-function getImageUrl(date: Date): string {
-  let formatted = formatAMPM(date)
+function getImageUrl(dt: number, timezone: number): string {
+  let formatted = formatAMPM(dt, timezone)
 
   const start = parseTime('7:00 AM')
   const end = parseTime('7:00 PM')
@@ -36,7 +31,7 @@ function getImageUrl(date: Date): string {
   <div
     class="saved-container"
     :style="{
-      backgroundImage: `url( ${getImageUrl(new Date(weather.dt * 1000))} )`,
+      backgroundImage: `url( ${getImageUrl(weather.dt, weather.timezone)} )`,
     }"
   >
     <div class="top-info">
@@ -51,7 +46,7 @@ function getImageUrl(date: Date): string {
           <h1 :class="weather.name.length < 15 ? 'dynamic-text-lg' : 'dynamic-text-md'">
             {{ weather.name }}
           </h1>
-          <p>{{ formatAMPM(new Date(weather.dt * 1000)) }}</p>
+          <p>{{ formatAMPM(weather.dt, weather.timezone) }}</p>
         </template>
       </div>
       <TemperatureAtom :temp="weather.main.temp" style="font-size: xx-large" />
