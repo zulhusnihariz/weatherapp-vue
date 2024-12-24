@@ -62,22 +62,22 @@ function selectDay(day: Forecast) {
 </script>
 <template>
   <div class="layout">
-    <div class="navbar-container">
+    <header class="navbar-container">
       <WeatherDetailNavbar v-if="route.path.startsWith('/weather/') && route.params?.id" />
       <MainWeatherCard :weather="weather" v-if="!loading" />
-    </div>
+    </header>
     <div id="scrollHere"></div>
     <template v-if="loading"> Loading... </template>
 
     <template v-else>
       <div class="forecast-container">
-        <div style="width: 100%">
+        <section style="width: 100%">
           <HourlyForecastList :forecasts="hourly" v-if="hourly" />
-        </div>
+        </section>
 
-        <div style="width: 100%">
+        <section style="width: 100%">
           <WeeklyForecastList :forecasts="weekly" :on-click="selectDay" v-if="weekly" />
-        </div>
+        </section>
       </div>
     </template>
   </div>

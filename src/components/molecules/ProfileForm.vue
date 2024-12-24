@@ -21,7 +21,6 @@ onMounted(async () => {
 
   if (c?.code) {
     const r = await getCountryDetails(c.code)
-    console.log(r, c)
   }
 })
 
@@ -40,7 +39,7 @@ const resolver = ref(zodResolver(profileValidationSchema))
     class="form"
     autocomplete="off"
   >
-    <div class="input-group">
+    <fieldset class="input-group">
       <label for="fullName">Full Name</label>
       <InputText
         id="fullName"
@@ -54,8 +53,8 @@ const resolver = ref(zodResolver(profileValidationSchema))
       <p v-if="$form.fullName?.invalid" class="error-message">
         {{ $form.fullName.error.message }}
       </p>
-    </div>
-    <div class="input-group">
+    </fieldset>
+    <fieldset class="input-group">
       <label for="email">Email</label>
       <InputText
         id="email"
@@ -69,9 +68,9 @@ const resolver = ref(zodResolver(profileValidationSchema))
       <p v-if="$form.email?.invalid" class="error-message">
         {{ $form.email.error.message }}
       </p>
-    </div>
+    </fieldset>
 
-    <div class="input-group">
+    <fieldset class="input-group">
       <label for="phoneNumber">Phone Number</label>
       <InputGroup>
         <InputGroupAddon style="border: none">
@@ -92,7 +91,7 @@ const resolver = ref(zodResolver(profileValidationSchema))
       <p v-if="$form.phoneNumber?.invalid" class="error-message">
         {{ $form.phoneNumber.error.message }}
       </p>
-    </div>
+    </fieldset>
     <slot></slot>
   </Form>
 </template>
@@ -100,6 +99,10 @@ const resolver = ref(zodResolver(profileValidationSchema))
 <style scoped>
 label {
   font-size: 12px;
+}
+
+fieldset {
+  border: none;
 }
 .input-group {
   display: flex;

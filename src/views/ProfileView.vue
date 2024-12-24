@@ -31,19 +31,30 @@ const submitForm = ({ valid }: FormSubmitEvent) => {
 <template>
   <div class="layout">
     <ProfileNavbar />
-    <ProfileDetails :profile="profile" />
-    <ProfileForm :input="input" :input-disabled="inputDisabled" :submit="submitForm">
-      <div class="button-group">
-        <Button v-if="!inputDisabled" class="action-button" label="Submit" type="submit" unstyled />
-        <Button
-          v-if="inputDisabled"
-          class="action-button"
-          label="Edit"
-          @click="toggleEdit"
-          unstyled
-        />
-      </div>
-    </ProfileForm>
+    <main>
+      <ProfileDetails :profile="profile" />
+
+      <section>
+        <ProfileForm :input="input" :input-disabled="inputDisabled" :submit="submitForm">
+          <div class="button-group">
+            <Button
+              v-if="!inputDisabled"
+              class="action-button"
+              label="Submit"
+              type="submit"
+              unstyled
+            />
+            <Button
+              v-if="inputDisabled"
+              class="action-button"
+              label="Edit"
+              @click="toggleEdit"
+              unstyled
+            />
+          </div>
+        </ProfileForm>
+      </section>
+    </main>
   </div>
 </template>
 

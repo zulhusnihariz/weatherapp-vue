@@ -38,7 +38,7 @@ function remove() {
     </template>
 
     <template v-else>
-      <ButtonAtom v-on:click="save" class="action-button">
+      <ButtonAtom @click="save" class="action-button">
         <AddIcon />
       </ButtonAtom>
     </template>

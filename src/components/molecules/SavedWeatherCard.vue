@@ -37,15 +37,15 @@ function getImageUrl(dt: number, timezone: number): string {
     <div class="top-info">
       <div>
         <template v-if="isMyLocation">
-          <h1 class="my-location">My Location</h1>
+          <p class="my-location">My Location</p>
           <p :class="weather.name.length < 15 ? 'dynamic-text-lg' : 'dynamic-text-md'">
             {{ weather.name }}
           </p>
         </template>
         <template v-else>
-          <h1 :class="weather.name.length < 15 ? 'dynamic-text-lg' : 'dynamic-text-md'">
+          <p :class="weather.name.length < 15 ? 'dynamic-text-lg' : 'dynamic-text-md'">
             {{ weather.name }}
-          </h1>
+          </p>
           <p>{{ formatAMPM(weather.dt, weather.timezone) }}</p>
         </template>
       </div>
@@ -80,6 +80,18 @@ function getImageUrl(dt: number, timezone: number): string {
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
 }
+
+.dynamic-text-lg,
+.dynamic-text-md {
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 29.83px;
+  letter-spacing: -0.01em;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+
 .dynamic-text-lg {
   font-size: 30px;
 }

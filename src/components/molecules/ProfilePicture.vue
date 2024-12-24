@@ -61,7 +61,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div style="position: relative">
+  <section style="position: relative">
     <input ref="file-uploader" type="file" @change="(e) => onChange(e)" accept="image/*" hidden />
     <Button aria-label="Save" class="upload" @click="upload" unstyled>
       <UploadImageIcon />
@@ -69,12 +69,12 @@ onMounted(() => {
     <img
       ref="profile-picture"
       :src="defaultProfilePicture"
-      alt=""
+      alt="profile picture"
       width="120"
       height="120"
       style="border-radius: 50%; object-fit: cover"
     />
-  </div>
+  </section>
 </template>
 <style>
 .bg {

@@ -11,15 +11,15 @@ const { forecast } = defineProps<Props>()
 </script>
 
 <template>
-  <div class="hweather-card-container">
+  <section class="hweather-card-container">
     <OpenWeatherIconAtom
       :icon="forecast.weather[0].icon"
       :alt="forecast.weather[0].description"
       class="weather-icon"
     />
     <TemperatureAtom :temp="forecast.main.temp" class="temp" />
-    {{ formatAMPM(forecast.dt) }}
-  </div>
+    <time>{{ formatAMPM(forecast.dt) }} </time>
+  </section>
 </template>
 <style>
 .hweather-card-container {

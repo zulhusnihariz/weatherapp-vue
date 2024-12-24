@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import BackArrowIcon from '@/components/icons/BackArrowIcon.vue'
-import RouterLinkButton from '@/components/molecules/RouterLinkButton.vue'
 </script>
 
 <template>
@@ -8,7 +7,7 @@ import RouterLinkButton from '@/components/molecules/RouterLinkButton.vue'
     <RouterLinkButton :to="'/'" style="float: left; position: absolute; left: 0">
       <BackArrowIcon />
     </RouterLinkButton>
-    <h2>Edit Profile</h2>
+    <h1>Edit Profile</h1>
   </header>
 </template>
 

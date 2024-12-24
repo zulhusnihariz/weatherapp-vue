@@ -12,7 +12,7 @@ interface Props {
 const { forecast } = defineProps<Props>()
 </script>
 <template>
-  <div class="wweather-card-container">
+  <section class="wweather-card-container">
     <div class="icon-container">
       <OpenWeatherIconAtom
         :icon="forecast.weather[0].icon"
@@ -30,7 +30,7 @@ const { forecast } = defineProps<Props>()
       <TemperatureAtom :temp="forecast.main.temp" class="" />
       <ArrowRightIcon />
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped>

@@ -28,5 +28,6 @@ const { isSearching } = useUIState()
   width: 100%;
   max-width: 343px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 </style>

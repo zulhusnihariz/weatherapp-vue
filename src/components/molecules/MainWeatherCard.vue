@@ -18,7 +18,7 @@ async function refresh() {
 </script>
 
 <template>
-  <div class="main-weather-container">
+  <section class="main-weather-container">
     <p>{{ formatDate(weather.dt) }}</p>
 
     <template v-if="hasWeatherData">
@@ -26,12 +26,12 @@ async function refresh() {
       <TemperatureAtom :temp="weather.main.temp" class="weather-temp" />
       <p class="weather-description">{{ weather.weather[0].description }}</p>
 
-      <div class="last-update">
-        <p>Last Update: {{ formatAMPM(weather.dt) }}</p>
+      <p class="last-update">
+        Last Update:<time> {{ formatAMPM(weather.dt) }} </time>
         <RefreshIcon @click="refresh" />
-      </div>
+      </p>
     </template>
-  </div>
+  </section>
 </template>
 <style>
 .last-update {

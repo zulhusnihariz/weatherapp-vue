@@ -24,10 +24,12 @@ onMounted(() => {
 <template>
   <div class="layout">
     <HomeNavbar />
-    <SearchCityInputField />
-    <template v-if="!isSearching">
-      <SavedWeatherList />
-    </template>
+    <main>
+      <SearchCityInputField />
+      <template v-if="!isSearching">
+        <SavedWeatherList />
+      </template>
+    </main>
   </div>
 </template>
 
