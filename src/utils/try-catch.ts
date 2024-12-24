@@ -1,10 +1,7 @@
 import type { ApiResponse } from '@/types/api'
 
 export async function tryCatch<T>(apicall: () => Promise<T>): Promise<ApiResponse<T>> {
-  const response: ApiResponse<T> = {
-    data: undefined,
-    error: undefined,
-  }
+  const response = { data: undefined, error: undefined } as ApiResponse<T>
 
   try {
     response.data = await apicall()

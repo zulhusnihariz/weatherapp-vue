@@ -1,4 +1,4 @@
-export type ApiResponse<T> = {
+export interface ApiResponse<T> {
   data: T
   error?: Error
 }
@@ -14,7 +14,7 @@ export interface OpenWeatherQuery {
   mode?: 'json' | 'xml'
 }
 
-export type RestCountriesResponse = {
+export interface RestCountriesResponse {
   name: {
     common: string;
     official: string;
