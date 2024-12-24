@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import useProfile from '@/store/profile'
+import { computed } from 'vue'
 import ProfilePicture from './ProfilePicture.vue'
 
-const { getProfile } = useProfile()
-const profile = getProfile()
+const { profile } = useProfile()
+
+const hasEmailAndPhoneNumber = computed(() => {
+  return profile.value.email.length > 0 && profile.value.phoneNumber.length > 0
+})
 </script>
 
 <template>
@@ -14,7 +18,9 @@ const profile = getProfile()
       <p class="name">{{ profile.fullName }}</p>
       <p class="details">
         <span class="email">{{ profile.email }}</span>
-        <span class="separator">|</span>
+        <template v-if="hasEmailAndPhoneNumber">
+          <span class="separator">|</span>
+        </template>
         <span class="phone">{{ profile.phoneNumber }}</span>
       </p>
     </div>

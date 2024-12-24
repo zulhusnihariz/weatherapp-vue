@@ -3,8 +3,9 @@ import { setToastEvent } from '@/main'
 import { LS_KEY } from '@/types/local-storage'
 import type { Profile } from '@/types/profile'
 import { computed, ref } from 'vue'
+
 const initial: Profile = { fullName: "", email: '', phoneNumber: "", imageBase64: '' }
-const state = ref(structuredClone(initial))
+const state = ref<Profile>(structuredClone(initial))
 
 export default function useProfile() {
   const loading = ref(false)
@@ -15,27 +16,19 @@ export default function useProfile() {
 
     setToastEvent({
       severity: 'success',
-      summary: "Profile Saved",
+      summary: 'Profile Saved',
       life: 3000
     })
   }
 
-  function getProfile(): Profile {
-    const profile = localStorage.getItem<Profile>(LS_KEY.PROFILE)
-
-    if (profile === null) {
-      localStorage.setItem<Profile>(LS_KEY.PROFILE, initial)
-      return state.value
-    }
-
+  const profile = localStorage.getItem<Profile>(LS_KEY.PROFILE)
+  if (profile != null) {
     state.value = profile
-    return state.value
   }
 
   return {
     loading: computed(() => loading.value),
     profile: computed(() => state.value),
     setProfile,
-    getProfile
   }
 }

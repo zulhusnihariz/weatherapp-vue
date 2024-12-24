@@ -8,8 +8,7 @@ import UploadImageIcon from '../icons/UploadImageIcon.vue'
 const fileupload = useTemplateRef<HTMLInputElement>('file-uploader')
 const profilePicture = useTemplateRef<HTMLImageElement>('profile-picture')
 
-const { setProfile, getProfile } = useProfile()
-const profile = getProfile()
+const { profile, setProfile } = useProfile()
 
 function isValidBase64(imageUrl: string) {
   let [_, excludeImageTag] = imageUrl.split(';')
@@ -52,12 +51,12 @@ onMounted(() => {
     return
   }
 
-  if (profile.imageBase64 === '' || !isValidBase64(profile.imageBase64)) {
+  if (profile.value.imageBase64 === '' || !isValidBase64(profile.value.imageBase64)) {
     profilePicture.value.src = defaultProfilePicture
     return
   }
 
-  profilePicture.value.src = profile.imageBase64
+  profilePicture.value.src = profile.value.imageBase64
 })
 </script>
 

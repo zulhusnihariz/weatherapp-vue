@@ -7,11 +7,10 @@ import type { Profile } from '@/types/profile'
 import type { FormSubmitEvent } from '@primevue/forms'
 import { ref } from 'vue'
 
-const { getProfile, setProfile } = useProfile()
-const profile = getProfile()
+const { profile, setProfile } = useProfile()
 
 const inputDisabled = ref<boolean>(true)
-const input = ref<Profile>(profile)
+const input = ref<Profile>({ ...profile.value })
 
 function toggleEdit() {
   inputDisabled.value = !inputDisabled.value
