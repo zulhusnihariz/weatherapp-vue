@@ -9,7 +9,7 @@ import RefreshIcon from '../icons/RefreshIcon.vue'
 const { weather, refreshWeather } = useWeather()
 
 const hasWeatherData = computed(() => {
-  return weather.value && weather.value.weather.length > 0
+  return weather.value && weather.value?.weather?.length > 0
 })
 
 async function refresh() {
