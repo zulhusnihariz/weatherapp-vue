@@ -25,6 +25,7 @@ const resolver = ref(zodResolver(profileValidationSchema))
     @submit="submit"
     unstyled
     class="form"
+    autocomplete="off"
   >
     <div class="input-group">
       <label for="fullName">Full Name</label>
@@ -94,6 +95,7 @@ label {
   border-radius: 8px;
   outline: none;
   background: #f5f5f5;
+  padding-left: 10px;
 }
 
 .input:disabled {

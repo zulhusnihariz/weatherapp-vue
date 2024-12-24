@@ -11,7 +11,7 @@ const { forecasts } = defineProps<Props>()
 
 <template>
   <h2>Hourly Forecast</h2>
-  <ul style="display: flex; overflow-y: hidden; overflow: hidden; overflow-x: scroll">
+  <ul>
     <li v-for="forecast in forecasts" :key="`${forecast.dt_txt}`">
       <HourlyWeatherCard :forecast="forecast" />
     </li>
@@ -23,10 +23,15 @@ h2 {
   font-weight: 600;
   margin-top: 20px;
   margin-bottom: 10px;
+  align-self: start;
 }
+
 ul {
   display: flex;
   gap: 10px;
   list-style: none;
+  overflow-y: hidden;
+  overflow: hidden;
+  overflow-x: scroll;
 }
 </style>

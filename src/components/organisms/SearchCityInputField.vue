@@ -36,7 +36,7 @@ async function searchCityWeather(e: AutoCompleteOptionSelectEvent) {
 <template>
   <span class="p-input-icon-left" :style="isSearching ? 'margin-top:50px' : ''">
     <i class="pi pi-search" />
-    <i class="pi pi-times-circle" @click="stopSearching" />
+    <i v-if="isSearching" class="pi pi-times-circle" @click="stopSearching" />
     <AutoComplete
       v-model="search"
       placeholder="Search for a city"
@@ -127,7 +127,6 @@ async function searchCityWeather(e: AutoCompleteOptionSelectEvent) {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 343px;
   background-color: #f7f7f9;
   border-radius: 10px;
   opacity: 1;
@@ -135,5 +134,7 @@ async function searchCityWeather(e: AutoCompleteOptionSelectEvent) {
   z-index: 1;
   margin-bottom: 24px;
   color: black;
+  width: 100vw;
+  max-width: 343px;
 }
 </style>

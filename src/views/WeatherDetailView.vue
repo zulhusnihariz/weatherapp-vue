@@ -70,21 +70,46 @@ function selectDay(day: Forecast) {
     <template v-if="loading"> Loading... </template>
 
     <template v-else>
-      <div style="margin: 0 20px">
-        <HourlyForecastList :forecasts="hourly" v-if="hourly" />
-        <WeeklyForecastList :forecasts="weekly" :on-click="selectDay" v-if="weekly" />
+      <div class="forecast-container">
+        <div style="width: 100%">
+          <HourlyForecastList :forecasts="hourly" v-if="hourly" />
+        </div>
+
+        <div style="width: 100%">
+          <WeeklyForecastList :forecasts="weekly" :on-click="selectDay" v-if="weekly" />
+        </div>
       </div>
     </template>
   </div>
 </template>
 
 <style scoped>
+h2 {
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  align-self: start;
+}
 .layout {
+  position: relative;
   width: 100vw;
   margin: 0px;
+  max-width: 343px;
 }
 .navbar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: linear-gradient(118.25deg, #4f80fa 1.2%, #3764d7 59.26%, #335fd1 79.2%);
   width: 100vw;
+}
+.forecast-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  margin: 0 20px;
+  width: 100%;
 }
 </style>

@@ -34,7 +34,7 @@ const submitForm = ({ valid }: FormSubmitEvent) => {
     <ProfileNavbar />
     <ProfileDetails :profile="profile" />
     <ProfileForm :input="input" :input-disabled="inputDisabled" :submit="submitForm">
-      <div style="position: absolute; bottom: 0">
+      <div class="button-group">
         <Button v-if="!inputDisabled" class="action-button" label="Submit" type="submit" unstyled />
         <Button
           v-if="inputDisabled"
@@ -54,7 +54,11 @@ const submitForm = ({ valid }: FormSubmitEvent) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 343px;
+  height: 90vh;
+}
+.button-group {
+  position: absolute;
+  bottom: 0;
 }
 
 .action-button {

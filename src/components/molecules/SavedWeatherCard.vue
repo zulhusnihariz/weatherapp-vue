@@ -29,11 +29,11 @@ function getImageUrl(date: Date): string {
 <template>
   <div
     class="saved-container"
-    :style="{ backgroundImage: `url( ${getImageUrl(new Date(weather.dt))} )` }"
+    :style="{
+      backgroundImage: `url( ${getImageUrl(new Date(weather.dt * 1000))} )`,
+    }"
   >
-    <div
-      style="display: flex; justify-content: space-between; width: 100%; align-items: flex-start"
-    >
+    <div class="top-info">
       <div>
         <h1 :class="weather.name.length < 15 ? 'dynamic-text-lg' : 'dynamic-text-md'">
           {{ weather.name }}
@@ -43,8 +43,8 @@ function getImageUrl(date: Date): string {
       <TemperatureAtom :temp="weather.main.temp" style="font-size: xx-large" />
     </div>
 
-    <div style="display: flex; justify-content: space-between; width: 100%; align-items: end">
-      <p style="font-weight: 500; text-transform: capitalize">
+    <div class="bottom-info">
+      <p class="weather-condition">
         {{ weather.weather[0].description }}
       </p>
       <div style="display: flex; gap: 15px">
@@ -72,8 +72,6 @@ function getImageUrl(date: Date): string {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
-  max-width: 343px;
   height: 117px;
   padding: 10px 20px;
   background-repeat: no-repeat;
@@ -83,6 +81,28 @@ function getImageUrl(date: Date): string {
   font-weight: 400;
   cursor: pointer;
   margin-bottom: 15px;
-  /* font-family: 'SF Pro Display'; */
+  width: 100%;
+}
+
+.top-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.bottom-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: end;
+}
+
+.city-name-time {
+}
+
+.weather-condition {
+  font-weight: 500;
+  text-transform: capitalize;
 }
 </style>

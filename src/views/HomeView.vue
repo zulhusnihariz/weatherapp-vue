@@ -16,12 +16,11 @@ const { isSearching } = useUIState()
   </div>
 </template>
 
-<style>
+<style scoped>
 .layout {
   display: flex;
   flex-direction: column;
-  width: 90vw;
-  height: 90vh;
-  margin: 0 20px;
+  align-items: center;
+  width: 100vw;
 }
 </style>

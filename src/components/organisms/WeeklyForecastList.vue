@@ -24,11 +24,16 @@ h2 {
   font-weight: 600;
   margin-top: 20px;
   margin-bottom: 10px;
+  align-self: start;
 }
+
 ul {
   display: flex;
   flex-direction: column;
   gap: 10px;
   list-style: none;
+  overflow-x: hidden;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 </style>

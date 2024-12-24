@@ -7,15 +7,13 @@ const { isSearching } = useUIState()
 </script>
 
 <template>
-  <header>
+  <header class="header">
     <template v-if="!isSearching">
-      <div class="header poppins-semibold">
-        <h1>Weather</h1>
+      <h1>Weather</h1>
 
-        <RouterLinkButton :to="'/profile'" style="">
-          <AccountIcon />
-        </RouterLinkButton>
-      </div>
+      <RouterLinkButton :to="'/profile'" style="">
+        <AccountIcon />
+      </RouterLinkButton>
     </template>
   </header>
 </template>
@@ -27,7 +25,8 @@ const { isSearching } = useUIState()
   justify-content: space-between;
   font-family: 'Poppins';
   font-weight: 600;
-  width: 343px;
+  width: 100%;
+  max-width: 343px;
   margin-top: 20px;
 }
 </style>

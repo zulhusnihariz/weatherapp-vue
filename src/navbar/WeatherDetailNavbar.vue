@@ -13,26 +13,24 @@ const weather = await getWeather({ id: route.params.id as string, units: 'metric
 </script>
 
 <template>
-  <header>
-    <div class="header poppins-semibold">
-      <RouterLinkButton to="/">
-        <BackArrowIcon :fill="'white'" />
-      </RouterLinkButton>
+  <header class="header">
+    <RouterLinkButton to="/">
+      <BackArrowIcon :fill="'white'" />
+    </RouterLinkButton>
 
-      <p>{{ weather.name }}</p>
+    <p>{{ weather.name }}</p>
 
-      <template v-if="isWeatherSaved">
-        <ButtonAtom v-on:click="discardWeather" class="action-button">
-          <TrashIcon />
-        </ButtonAtom>
-      </template>
+    <template v-if="isWeatherSaved">
+      <ButtonAtom v-on:click="discardWeather" class="action-button">
+        <TrashIcon />
+      </ButtonAtom>
+    </template>
 
-      <template v-else>
-        <ButtonAtom v-on:click="saveWeather" class="action-button">
-          <AddIcon />
-        </ButtonAtom>
-      </template>
-    </div>
+    <template v-else>
+      <ButtonAtom v-on:click="saveWeather" class="action-button">
+        <AddIcon />
+      </ButtonAtom>
+    </template>
   </header>
 </template>
 
@@ -46,6 +44,7 @@ const weather = await getWeather({ id: route.params.id as string, units: 'metric
 }
 .header {
   display: flex;
+
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -54,8 +53,9 @@ const weather = await getWeather({ id: route.params.id as string, units: 'metric
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
-  padding: 20px;
   color: white;
+  max-width: 343px;
+  margin: 20px 0;
 }
 
 .back-button {

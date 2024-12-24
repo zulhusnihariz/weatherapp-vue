@@ -1,4 +1,6 @@
 import HomeView from '@/views/HomeView.vue'
+import ProfileView from '@/views/ProfileView.vue'
+import WeatherDetailView from '@/views/WeatherDetailView.vue'
 
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -13,12 +15,12 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: () => import("@/views/ProfileView.vue")
+      component: ProfileView
     },
     {
       path: '/weather/:id',
       name: 'weather',
-      component: () => import("@/views/WeatherDetailView.vue"),
+      component: WeatherDetailView,
     },
     {
       path: "/:catchAll(.*)",

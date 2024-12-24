@@ -14,10 +14,10 @@ import RouterLinkButton from '@/components/molecules/RouterLinkButton.vue'
 
 <style scoped>
 .header {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   height: min-content;
   font-family: 'Poppins';
   font-weight: 600;
@@ -25,24 +25,8 @@ import RouterLinkButton from '@/components/molecules/RouterLinkButton.vue'
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   margin: 10px 0;
-}
-.header-content {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  margin-top: 20px;
   width: 100%;
-}
-
-.back-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
+  max-width: 343px;
 }
 </style>

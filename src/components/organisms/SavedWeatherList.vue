@@ -26,3 +26,10 @@ async function viewWeatherDetails(weather: WeatherResponse) {
     </li>
   </ul>
 </template>
+
+<style>
+ul {
+  width: 100%;
+  max-width: 343px;
+}
+</style>
