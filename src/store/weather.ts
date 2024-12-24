@@ -27,7 +27,6 @@ const myLocation = ref({ lon: 0, lat: 0 })
 
 export default function useWeather() {
   const loading = ref(false)
-  const error = ref<Error>()
 
   function setWeather(data: Partial<WeatherDetails>) {
     if (data.weather) state.value.weather = { ...state.value.weather, ...data.weather }
@@ -56,7 +55,6 @@ export default function useWeather() {
     const { data, error: err } = await fetchWeather(options)
 
     if (err !== undefined) {
-      error.value = err
       loading.value = false
       setToastEvent({ severity: 'error', summary: err.message, life: 3000 })
       return initial.weather
@@ -89,7 +87,6 @@ export default function useWeather() {
 
     const { data, error: err } = await fetchForecast(options)
     if (err !== undefined) {
-      error.value = err
       loading.value = false
       setToastEvent({ severity: 'error', summary: err.message, life: 3000 })
       return initial.forecast
@@ -102,6 +99,9 @@ export default function useWeather() {
   }
 
   function saveWeather(weather: WeatherResponse) {
+    const index = savedWeather.value.findIndex(el => el.id === weather.id)
+    if (index >= 0) return
+
     savedWeather.value = [...savedWeather.value, weather]
     localstorage.setItem<WeatherResponse[]>(LS_KEY.WEATHER, savedWeather.value)
   }
@@ -166,7 +166,6 @@ export default function useWeather() {
 
   return {
     loading: computed(() => loading.value),
-    error: computed(() => error.value),
     savedWeather: computed(() => savedWeather.value),
     weather: computed(() => state.value.weather),
     isWeatherSaved: computed(() =>

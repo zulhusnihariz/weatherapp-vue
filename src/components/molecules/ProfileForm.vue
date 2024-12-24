@@ -1,16 +1,29 @@
 <script setup lang="ts">
+import useProfile from '@/store/profile'
 import type { Profile } from '@/types/profile'
+import { getCountry } from '@/utils/country'
 import { profileValidationSchema } from '@/validations/profile'
 import { Form, type FormSubmitEvent } from '@primevue/forms'
 import { zodResolver } from '@primevue/forms/resolvers/zod'
 import InputText from 'primevue/inputtext'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 interface Props {
   input: Profile
   inputDisabled: boolean
   submit: (e: FormSubmitEvent) => void
 }
+
+const { country, getCountryDetails } = useProfile()
+
+onMounted(async () => {
+  const c = getCountry()
+
+  if (c?.code) {
+    const r = await getCountryDetails(c.code)
+    console.log(r, c)
+  }
+})
 
 const { input, submit, inputDisabled } = defineProps<Props>()
 
@@ -60,15 +73,22 @@ const resolver = ref(zodResolver(profileValidationSchema))
 
     <div class="input-group">
       <label for="phoneNumber">Phone Number</label>
-      <InputText
-        id="phoneNumber"
-        name="phoneNumber"
-        v-model="input.phoneNumber"
-        :disabled="inputDisabled"
-        class="input"
-        type="text"
-        unstyled
-      />
+      <InputGroup>
+        <InputGroupAddon style="border: none">
+          <template v-if="country?.flags?.png">
+            <img :src="country.flags.png" :alt="country.flags.alt" id="country-flag" />
+          </template>
+        </InputGroupAddon>
+        <InputText
+          id="phoneNumber"
+          name="phoneNumber"
+          v-model="input.phoneNumber"
+          :disabled="inputDisabled"
+          class="input"
+          type="text"
+          unstyled
+        />
+      </InputGroup>
       <p v-if="$form.phoneNumber?.invalid" class="error-message">
         {{ $form.phoneNumber.error.message }}
       </p>
@@ -86,6 +106,30 @@ label {
   flex-direction: column;
   gap: 1px;
   margin-bottom: 10px;
+}
+
+.p-inputgroup,
+.p-inputgroupaddon,
+.p-inputgroupaddon div {
+  background-color: #f5f5f5;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-right: 1px solid #d5d5d5;
+}
+
+#country-flag {
+  transform: scale(0.7);
+  max-width: 40px;
+  object-fit: cover;
+}
+
+#phoneNumber {
+  width: 100%;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .input {

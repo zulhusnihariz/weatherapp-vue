@@ -54,10 +54,10 @@
   margin: 0;
 }
 
-html,
+/* html,
 body {
   overflow-x: hidden;
-}
+} */
 
 body {
   min-height: 100vh;
