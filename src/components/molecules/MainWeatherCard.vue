@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import type { WeatherResponse } from '@/types/weather'
-import { formatDate } from '@/utils/date-formatter'
+import useWeather from '@/store/weather'
+import { formatAMPM, formatDate } from '@/utils/date-formatter'
 import { computed } from 'vue'
 import OpenWeatherIconAtom from '../atoms/OpenWeatherIconAtom.vue'
 import TemperatureAtom from '../atoms/TemperatureAtom.vue'
 import RefreshIcon from '../icons/RefreshIcon.vue'
 
-interface Props {
-  weather: WeatherResponse
-}
-
-const { weather } = defineProps<Props>()
+const { weather, refreshWeather } = useWeather()
 
 const hasWeatherData = computed(() => {
-  return weather && weather.weather && weather.weather.length > 0
+  return weather.value && weather.value.weather.length > 0
 })
+
+async function refresh() {
+  await refreshWeather(weather.value.id)
+}
 </script>
 
 <template>
@@ -27,8 +27,8 @@ const hasWeatherData = computed(() => {
       <p class="weather-description">{{ weather.weather[0].description }}</p>
 
       <div class="last-update">
-        <p>Last Update: 11:00 AM</p>
-        <RefreshIcon />
+        <p>Last Update: {{ formatAMPM(new Date(weather.dt * 1000)) }}</p>
+        <RefreshIcon @click="refresh" />
       </div>
     </template>
   </div>
