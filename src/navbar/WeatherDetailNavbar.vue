@@ -4,12 +4,23 @@ import AddIcon from '@/components/icons/AddIcon.vue'
 import BackArrowIcon from '@/components/icons/BackArrowIcon.vue'
 import TrashIcon from '@/components/icons/TrashIcon.vue'
 import RouterLinkButton from '@/components/molecules/RouterLinkButton.vue'
+import { setToastEvent } from '@/main'
 import useWeather from '@/store/weather'
 import { useRoute } from 'vue-router'
 
 const { isWeatherSaved, saveWeather, discardWeather, getWeather } = useWeather()
 const route = useRoute()
 const weather = await getWeather({ id: route.params.id as string, units: 'metric' })
+
+function save() {
+  saveWeather(weather)
+  setToastEvent({ severity: 'success', summary: 'Weather Saved', life: 3000 })
+}
+
+function remove() {
+  discardWeather(weather.id)
+  setToastEvent({ severity: 'warn', summary: 'Weather Removed', life: 3000 })
+}
 </script>
 
 <template>
@@ -21,13 +32,13 @@ const weather = await getWeather({ id: route.params.id as string, units: 'metric
     <p>{{ weather.name }}</p>
 
     <template v-if="isWeatherSaved">
-      <ButtonAtom v-on:click="discardWeather" class="action-button">
+      <ButtonAtom @click="remove" class="action-button">
         <TrashIcon />
       </ButtonAtom>
     </template>
 
     <template v-else>
-      <ButtonAtom v-on:click="saveWeather" class="action-button">
+      <ButtonAtom v-on:click="save" class="action-button">
         <AddIcon />
       </ButtonAtom>
     </template>

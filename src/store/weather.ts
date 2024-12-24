@@ -33,8 +33,8 @@ export default function useWeather() {
     if (data.forecast) state.value.forecast = { ...state.value.forecast, ...data.forecast }
   }
 
-  async function getWeather(options: OpenWeatherQuery): Promise<WeatherResponse> {
-    if (!isEmptyObject(state.value.weather)) {
+  async function getWeather(options: OpenWeatherQuery, refetch = false): Promise<WeatherResponse> {
+    if (!isEmptyObject(state.value.weather) && !refetch) {
       return state.value.weather
     }
 
@@ -56,8 +56,8 @@ export default function useWeather() {
 
     if (err !== undefined) {
       error.value = err
-      setToastEvent({ severity: 'error', summary: err.message, life: 3000 })
       loading.value = false
+      setToastEvent({ severity: 'error', summary: err.message, life: 3000 })
       return initial.weather
     }
 
@@ -67,9 +67,9 @@ export default function useWeather() {
     return state.value.weather
   }
 
-  async function getForecast(options: OpenWeatherQuery): Promise<ForecastResponse> {
+  async function getForecast(options: OpenWeatherQuery, refetch = false): Promise<ForecastResponse> {
 
-    if (!isEmptyObject(state.value.forecast)) {
+    if (!isEmptyObject(state.value.forecast) && !refetch) {
       return state.value.forecast
     }
 
@@ -89,8 +89,8 @@ export default function useWeather() {
     const { data, error: err } = await fetchForecast(options)
     if (err !== undefined) {
       error.value = err
-      setToastEvent({ severity: 'error', summary: err.message, life: 3000 })
       loading.value = false
+      setToastEvent({ severity: 'error', summary: err.message, life: 3000 })
       return initial.forecast
     }
 
@@ -100,16 +100,46 @@ export default function useWeather() {
     return state.value.forecast
   }
 
-  function saveWeather() {
-    savedWeather.value = [...savedWeather.value, state.value.weather]
+  function saveWeather(weather: WeatherResponse) {
+    savedWeather.value = [...savedWeather.value, weather]
     localstorage.setItem<WeatherResponse[]>(LS_KEY.WEATHER, savedWeather.value)
-    setToastEvent({ "severity": "success", summary: "Weather Saved", life: 3000 })
   }
 
-  function discardWeather() {
-    savedWeather.value = savedWeather.value.filter((el) => el.id !== state.value.weather.id)
+  function discardWeather(id: number) {
+    savedWeather.value = savedWeather.value.filter((el) => el.id !== id)
     localstorage.setItem<WeatherResponse[]>(LS_KEY.WEATHER, savedWeather.value)
-    setToastEvent({ "severity": "warn", summary: "Weather Removed", life: 3000 })
+  }
+
+  async function refreshWeather(id: number): Promise<void> {
+    const weather = await getWeather({ id: `${id}`, units: 'metric' }, true)
+    await getForecast({ id: `${id}`, units: 'metric' }, true)
+
+    const index = savedWeather.value.findIndex(el => el.id === weather.id)
+    if (index > -1) {
+      discardWeather(id)
+      saveWeather(weather)
+    }
+  }
+
+  function isMyLocationSaved(lon: number, lat: number) {
+    const saved = getSavedWeather()
+    if (saved.length == 0) {
+      return false
+    }
+
+    const index = saved.findIndex(el => {
+      return el.coord.lat.toFixed(2) == lat.toFixed(2) && el.coord.lon.toFixed(2) == lon.toFixed(2)
+    })
+
+    return index === -1 ? false : true
+  }
+
+
+  async function saveMyLocation(lat: number, lon: number): Promise<void> {
+    if (isMyLocationSaved(lon, lat)) return
+
+    const weather = await getWeather({ lat, lon, units: 'metric' })
+    saveWeather(weather)
   }
 
   function getSavedWeather(): WeatherResponse[] {
@@ -133,6 +163,7 @@ export default function useWeather() {
     loading: computed(() => loading.value),
     error: computed(() => error.value),
     savedWeather: computed(() => savedWeather.value),
+    weather: computed(() => state.value.weather),
     isWeatherSaved: computed(() =>
       savedWeather.value.findIndex((el) => el.id === state.value.weather.id) >= 0 ? true : false,
     ),
@@ -142,6 +173,9 @@ export default function useWeather() {
     getForecast,
     getSavedWeather,
     discardWeather,
-    resetWeather
+    resetWeather,
+    saveMyLocation,
+    refreshWeather,
+    isMyLocationSaved
   }
 }
