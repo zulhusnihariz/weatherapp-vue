@@ -67,8 +67,11 @@ const submitForm = ({ valid }: FormSubmitEvent) => {
   height: 90vh;
 }
 .button-group {
-  position: absolute;
-  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
 }
 
 .action-button {

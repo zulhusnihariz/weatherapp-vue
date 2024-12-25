@@ -35,5 +35,9 @@ async function viewWeatherDetails(weather: WeatherResponse) {
 ul {
   width: 100%;
   max-width: 343px;
+  max-height: 100vh;
+  overflow-x: hidden;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 </style>
