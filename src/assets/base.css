@@ -54,10 +54,10 @@
   margin: 0;
 }
 
-/* html,
+html,
 body {
   overflow-x: hidden;
-} */
+}
 
 body {
   min-height: 100vh;
@@ -94,11 +94,15 @@ li {
   margin: 0;
 }
 
-input {
-  /* padding: 0;
-  outline: none;
-  border-style: none;
-  height: 39px;
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  max-width: 343px; */
+}
+
+@media only screen and (max-width: 374px) {
+  .layout {
+    /* align-items: start; */
+  }
 }

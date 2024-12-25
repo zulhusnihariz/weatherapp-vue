@@ -3,7 +3,7 @@ import BackArrowIcon from '@/components/icons/BackArrowIcon.vue'
 </script>
 
 <template>
-  <header class="header">
+  <header id="profile-navbar">
     <RouterLinkButton :to="'/'" style="float: left; position: absolute; left: 0">
       <BackArrowIcon />
     </RouterLinkButton>
@@ -12,7 +12,7 @@ import BackArrowIcon from '@/components/icons/BackArrowIcon.vue'
 </template>
 
 <style scoped>
-.header {
+#profile-navbar {
   position: relative;
   display: flex;
   justify-content: center;

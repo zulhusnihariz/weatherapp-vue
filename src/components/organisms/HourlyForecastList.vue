@@ -10,12 +10,14 @@ const { forecasts } = defineProps<Props>()
 </script>
 
 <template>
-  <h2>Hourly Forecast</h2>
-  <ul>
-    <li v-for="forecast in forecasts" :key="`${forecast.dt_txt}`">
-      <HourlyWeatherCard :forecast="forecast" />
-    </li>
-  </ul>
+  <section id="hourly-forecast-container">
+    <h2>Hourly Forecast</h2>
+    <ul>
+      <li v-for="forecast in forecasts" :key="`${forecast.dt_txt}`">
+        <HourlyWeatherCard :forecast="forecast" />
+      </li>
+    </ul>
+  </section>
 </template>
 
 <style scoped>
@@ -23,7 +25,7 @@ h2 {
   font-weight: 600;
   margin-top: 20px;
   margin-bottom: 10px;
-  align-self: start;
+  /* align-self: start; */
 }
 
 ul {
@@ -33,5 +35,14 @@ ul {
   overflow-y: hidden;
   overflow: hidden;
   overflow-x: scroll;
+}
+
+#hourly-forecast-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }
 </style>

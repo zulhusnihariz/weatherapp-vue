@@ -8,7 +8,7 @@ const { setWeather, getSavedWeather, isMyLocation } = useWeather()
 const weathers = getSavedWeather()
 const router = useRouter()
 
-async function viewWeatherDetails(weather: WeatherResponse) {
+function viewWeatherDetails(weather: WeatherResponse) {
   setWeather({ weather })
   router.push({ path: `/weather/${weather.id}` })
 }

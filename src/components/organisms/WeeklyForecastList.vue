@@ -11,17 +11,19 @@ const { forecasts } = defineProps<Props>()
 </script>
 
 <template>
-  <h2>Weekly Forecast</h2>
-  <ul style="display: flex; overflow-y: hidden; overflow: hidden; overflow-x: scroll">
-    <li
-      v-for="forecast in forecasts"
-      :key="`${forecast.dt_txt}`"
-      @click="() => onClick(forecast)"
-      aria-label="update hourly forecast"
-    >
-      <WeeklyWeatherCard :forecast="forecast" />
-    </li>
-  </ul>
+  <section id="weekly-forecast-container">
+    <h2>Weekly Forecast</h2>
+    <ul>
+      <li
+        v-for="forecast in forecasts"
+        :key="`${forecast.dt_txt}`"
+        @click="() => onClick(forecast)"
+        aria-label="update hourly forecast"
+      >
+        <WeeklyWeatherCard :forecast="forecast" />
+      </li>
+    </ul>
+  </section>
 </template>
 
 <style scoped>
@@ -40,5 +42,12 @@ ul {
   overflow-x: hidden;
   overflow: hidden;
   overflow-y: scroll;
+}
+
+#weekly-forecast-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 </style>

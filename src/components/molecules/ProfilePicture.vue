@@ -61,7 +61,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section style="position: relative">
+  <section id="profile-picture-container" style="position: relative">
     <input ref="file-uploader" type="file" @change="(e) => onChange(e)" accept="image/*" hidden />
     <Button aria-label="Save" class="upload" @click="upload" unstyled>
       <UploadImageIcon />
@@ -77,6 +77,10 @@ onMounted(() => {
   </section>
 </template>
 <style>
+#profile-picture-container {
+  display: flex;
+  flex-direction: column;
+}
 .bg {
   position: absolute;
   width: 350px;

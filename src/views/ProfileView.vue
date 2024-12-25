@@ -31,10 +31,10 @@ const submitForm = ({ valid }: FormSubmitEvent) => {
 <template>
   <div class="layout">
     <ProfileNavbar />
-    <main>
+    <main id="main-profile">
       <ProfileDetails :profile="profile" />
 
-      <section>
+      <section style="margin-top: 30px">
         <ProfileForm :input="input" :input-disabled="inputDisabled" :submit="submitForm">
           <div class="button-group">
             <Button
@@ -58,13 +58,10 @@ const submitForm = ({ valid }: FormSubmitEvent) => {
   </div>
 </template>
 
-<style scoped>
-.layout {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 90vh;
+<style>
+#main-profile {
+  width: 100vw;
+  max-width: 343px;
 }
 .button-group {
   display: flex;
@@ -76,9 +73,8 @@ const submitForm = ({ valid }: FormSubmitEvent) => {
 
 .action-button {
   padding: 12.5px 16px;
-  width: 343px;
+  width: 100%;
   height: 53px;
-
   background: #2e3a5a;
   border-radius: 8px;
   text-transform: uppercase;

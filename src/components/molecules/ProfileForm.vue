@@ -32,12 +32,12 @@ const resolver = ref(zodResolver(profileValidationSchema))
 
 <template>
   <Form
+    id="form"
     v-slot="$form"
     :resolver="resolver"
     :initial-values="input"
     @submit="submit"
     unstyled
-    class="form"
     autocomplete="off"
   >
     <fieldset class="input-group">
@@ -105,10 +105,16 @@ label {
 fieldset {
   border: none;
 }
+
+#form {
+  width: 100%;
+}
 .input-group {
   display: flex;
   flex-direction: column;
   gap: 1px;
+  margin: 0px;
+  padding: 0px;
   margin-bottom: 10px;
 }
 
@@ -137,7 +143,7 @@ fieldset {
 }
 
 .input {
-  width: 342px;
+  width: 100%;
   height: 50px;
   padding-top: 5px;
   border-radius: 8px;

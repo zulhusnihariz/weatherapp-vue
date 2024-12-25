@@ -24,7 +24,7 @@ function remove() {
 </script>
 
 <template>
-  <header class="header">
+  <header id="wdetails-navbar">
     <RouterLinkButton to="/">
       <BackArrowIcon :fill="'white'" />
     </RouterLinkButton>
@@ -32,30 +32,30 @@ function remove() {
     <p>{{ weather.name }}</p>
 
     <template v-if="isWeatherSaved">
-      <ButtonAtom @click="remove" class="action-button" aria-label="remove saved weather">
+      <ButtonAtom @click="remove" id="remove-btn" aria-label="remove saved weather">
         <TrashIcon />
       </ButtonAtom>
     </template>
 
     <template v-else>
-      <ButtonAtom @click="save" class="action-button" aria-label="save weather">
+      <ButtonAtom @click="save" id="save-btn" aria-label="save weather">
         <AddIcon />
       </ButtonAtom>
     </template>
   </header>
 </template>
 
-<style scoped>
-.action-button {
+<style>
+#save-btn,
+#remove-btn {
   background: none;
   color: inherit;
   border: none;
   cursor: pointer;
   outline: inherit;
 }
-.header {
+#wdetails-navbar {
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   width: 100%;

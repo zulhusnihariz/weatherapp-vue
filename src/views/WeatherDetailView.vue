@@ -71,45 +71,42 @@ function selectDay(day: Forecast) {
 
     <template v-else>
       <div class="forecast-container">
-        <section style="width: 100%">
-          <HourlyForecastList :forecasts="hourly" v-if="hourly" />
-        </section>
+        <HourlyForecastList :forecasts="hourly" v-if="hourly" />
 
-        <section style="width: 100%">
-          <WeeklyForecastList :forecasts="weekly" :on-click="selectDay" v-if="weekly" />
-        </section>
+        <WeeklyForecastList :forecasts="weekly" :on-click="selectDay" v-if="weekly" />
       </div>
     </template>
   </div>
 </template>
 
-<style scoped>
+<style>
 h2 {
   font-weight: 600;
   margin-top: 20px;
   margin-bottom: 10px;
   align-self: start;
 }
-.layout {
-  position: relative;
-  width: 100vw;
-  margin: 0px;
-  max-width: 343px;
-}
+
 .navbar-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background: linear-gradient(118.25deg, #4f80fa 1.2%, #3764d7 59.26%, #335fd1 79.2%);
   width: 100vw;
-}
-.forecast-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: left;
-  margin: 0 20px;
-  width: 100%;
+  padding: 0 10px;
 }
+
+/* .forecast-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width:100%
+} */
+/*
+section {
+  width: 100%;
+  padding: 0 10px;
+  max-width: 343px;
+} */
 </style>
