@@ -1,9 +1,7 @@
 import localstorage from '@/adapter/local-storage'
-import dummyForecast from '@/data/default-forecast.json'
-import dummyWeather from '@/data/default-weather.json'
 import { setToastEvent } from '@/main'
 import { fetchForecast, fetchWeather } from '@/repositories/weather'
-import type { ApiResponse, OpenWeatherQuery } from '@/types/api'
+import type { OpenWeatherQuery } from '@/types/api'
 import type { ForecastResponse } from '@/types/forecast'
 import { LS_KEY } from '@/types/local-storage'
 import type { WeatherResponse } from '@/types/weather'
@@ -20,7 +18,6 @@ const initial = {
   forecast: {},
 } as WeatherDetails
 
-const useDummy = Boolean(import.meta.env.VITE_DUMMY_DATA == 'true')
 const savedWeather = ref<WeatherResponse[]>([])
 const state = ref(structuredClone(initial))
 const myLocation = ref({ lon: 0, lat: 0 })
@@ -40,18 +37,6 @@ export default function useWeather() {
 
     loading.value = true
 
-    if (useDummy) {
-      let { data }: ApiResponse<WeatherResponse> = {
-        data: dummyWeather,
-        error: undefined,
-      }
-
-      setWeather({ weather: data })
-      loading.value = false
-
-      return state.value.weather
-    }
-
     const { data, error: err } = await fetchWeather(options)
 
     if (err !== undefined) {
@@ -67,23 +52,11 @@ export default function useWeather() {
   }
 
   async function getForecast(options: OpenWeatherQuery, refetch = false): Promise<ForecastResponse> {
-
     if (!isEmptyObject(state.value.forecast) && !refetch) {
       return state.value.forecast
     }
 
     loading.value = true
-
-    if (useDummy) {
-      let { data }: ApiResponse<ForecastResponse> = {
-        data: dummyForecast as ForecastResponse,
-        error: undefined,
-      }
-
-      setWeather({ forecast: data })
-      loading.value = false
-      return state.value.forecast
-    }
 
     const { data, error: err } = await fetchForecast(options)
     if (err !== undefined) {
