@@ -1,25 +1,17 @@
 <script setup lang="ts">
-import data from '@/data/city.json'
+import useGoCountries from '@/store/rest'
 import useUIState from '@/store/ui-state'
 import type { City } from '@/types/city'
 import type { AutoCompleteOptionSelectEvent } from 'primevue'
-import { computed, ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
-const cities = ref<City[]>(data)
+const filters = ref<City[]>([])
 const search = ref<string>('')
 
 const { isSearching, setSearching } = useUIState()
+const { queryCity } = useGoCountries()
 const router = useRouter()
-
-const filters = computed<City[]>(() => {
-  if (search.value.length == 0) {
-    setSearching(false)
-    return []
-  }
-  setSearching(true)
-  return cities.value.filter((el) => el.name.toLowerCase().includes(search.value))
-})
 
 function stopSearching() {
   search.value = ''
@@ -31,6 +23,16 @@ async function searchCityWeather(e: AutoCompleteOptionSelectEvent) {
     router.push({ path: `/weather/${e.value.id}` })
   }
 }
+
+watch(search, async (query) => {
+  if (query.length > 0) {
+    setSearching(true)
+    const cities = await queryCity(query)
+    filters.value = cities
+  } else {
+    setSearching(false)
+  }
+})
 </script>
 
 <template>
@@ -56,13 +58,15 @@ async function searchCityWeather(e: AutoCompleteOptionSelectEvent) {
         appendOnly: true,
         autoSize: false,
       }"
+      :delay="300"
       :pt="{
         root: {
           id: 'search-input',
         },
         listContainer: {
-          class: 'input-list-container',
+          id: 'input-list-container',
         },
+        overlay: { id: 'overlay' },
       }"
     >
       <template #option="slotProps">
@@ -84,15 +88,14 @@ async function searchCityWeather(e: AutoCompleteOptionSelectEvent) {
   margin-bottom: 10px;
 }
 
-#pv_id_1_panel,
-.p-virtualscroller {
+#overlay {
   border: none;
   box-shadow: none;
   outline: none;
   background-color: white;
 }
 
-.input-list-container {
+#input-list-container {
   width: 100%;
   background-color: white;
   border: none;
@@ -105,7 +108,7 @@ async function searchCityWeather(e: AutoCompleteOptionSelectEvent) {
   z-index: 3;
   right: 0;
   padding-top: 0.7em;
-  padding-right: 1em;
+  padding-right: 0.7em;
 }
 
 .pi-search {

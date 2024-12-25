@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import useProfile from '@/store/profile'
+import useGoCountries from '@/store/rest'
 import type { Profile } from '@/types/profile'
-import { getCountry } from '@/utils/country'
 import { profileValidationSchema } from '@/validations/profile'
 import { Form, type FormSubmitEvent } from '@primevue/forms'
 import { zodResolver } from '@primevue/forms/resolvers/zod'
@@ -15,12 +15,13 @@ interface Props {
 }
 
 const { country, getCountryDetails } = useProfile()
+const { queryCountryCode } = useGoCountries()
 
 onMounted(async () => {
-  const c = getCountry()
+  const c = await queryCountryCode()
 
   if (c?.code) {
-    const r = await getCountryDetails(c.code)
+    await getCountryDetails(c.code)
   }
 })
 

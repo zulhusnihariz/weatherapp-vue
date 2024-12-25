@@ -9,3 +9,7 @@ export interface City {
   population?: number,
   timezone?: number
 }
+export interface CountryCode {
+  country: string
+  code: string
+}

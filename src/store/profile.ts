@@ -1,6 +1,6 @@
 import localStorage from '@/adapter/local-storage'
 import { setToastEvent } from '@/main'
-import { getRestCountry } from '@/repositories/country'
+import { fetchRestCountry } from '@/repositories/country'
 import type { RestCountriesResponse } from '@/types/api'
 import { LS_KEY } from '@/types/local-storage'
 import type { Profile } from '@/types/profile'
@@ -29,9 +29,8 @@ export default function useProfile() {
     state.value = profile
   }
 
-
   async function getCountryDetails(countryCode: string): Promise<RestCountriesResponse> {
-    const { data, error: err } = await getRestCountry(countryCode)
+    const { data, error: err } = await fetchRestCountry(countryCode)
 
     if (err !== undefined) {
       setToastEvent({ severity: 'error', summary: err.message, life: 3000 })

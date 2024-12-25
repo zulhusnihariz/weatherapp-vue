@@ -14,7 +14,7 @@ const hasEmailAndPhoneNumber = computed(() => {
   <section class="details-container">
     <ProfilePicture />
 
-    <details class="contact">
+    <div class="contact">
       <p class="name">{{ profile.fullName }}</p>
       <p class="details">
         <p class="email">{{ profile.email }}</p>
@@ -23,7 +23,7 @@ const hasEmailAndPhoneNumber = computed(() => {
         </template>
         <p class="phone">{{ profile.phoneNumber }}</p>
       </p>
-    </details>
+    </div>
   </section>
 </template>
 
