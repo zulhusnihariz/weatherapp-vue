@@ -43,6 +43,7 @@ ul {
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 100%;
+  width: 100vw;
+  max-width: 343px;
 }
 </style>
