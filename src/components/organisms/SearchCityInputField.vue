@@ -50,6 +50,7 @@ watch(search, async (query) => {
       @option-select="(e) => searchCityWeather(e)"
       :suggestions="filters"
       variant="filled"
+      option-label="name"
       loader="false"
       data-key="id"
       :virtual-scroller-options="{

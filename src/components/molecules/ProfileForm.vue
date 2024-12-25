@@ -33,7 +33,6 @@ const resolver = ref(zodResolver(profileValidationSchema))
 
 <template>
   <Form
-    id="form"
     v-slot="$form"
     :resolver="resolver"
     :initial-values="input"
@@ -126,21 +125,17 @@ fieldset {
   border: none;
 }
 
-#form {
-  width: 100%;
-}
-
 .input-group {
   display: flex;
   flex-direction: column;
   gap: 1px;
   margin: 0px;
   padding: 0px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .p-iftalabel {
-  left: 10px;
+  left: 0px;
   bottom: 0px;
   top: 10px;
   background-color: #f5f5f5;

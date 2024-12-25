@@ -34,7 +34,7 @@ const submitForm = ({ valid }: FormSubmitEvent) => {
     <main id="main-profile">
       <ProfileDetails :profile="profile" />
 
-      <section style="margin-top: 30px">
+      <section style="margin-top: 30px; width: 100%">
         <ProfileForm :input="input" :input-disabled="inputDisabled" :submit="submitForm">
           <div class="button-group">
             <Button
