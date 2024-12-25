@@ -1,5 +1,4 @@
 
-import { setToastEvent } from '@/main'
 import { fetchCity, fetchCountryCode } from '@/repositories/country'
 import type { CountryCode } from '@/types/city'
 
@@ -9,7 +8,6 @@ export default function useGoCountries() {
     const { data, error } = await fetchCity(query)
 
     if (error !== undefined) {
-      setToastEvent({ severity: 'error', summary: "Local Rest error", life: 3000 })
       return []
     }
 
@@ -21,7 +19,6 @@ export default function useGoCountries() {
     const { data, error } = await fetchCountryCode(timezone)
 
     if (error !== undefined) {
-      setToastEvent({ severity: 'error', summary: "Local Rest error", life: 3000 })
       return { country: '', code: '' }
     }
 

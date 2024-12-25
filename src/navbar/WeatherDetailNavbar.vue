@@ -4,7 +4,6 @@ import AddIcon from '@/components/icons/AddIcon.vue'
 import BackArrowIcon from '@/components/icons/BackArrowIcon.vue'
 import TrashIcon from '@/components/icons/TrashIcon.vue'
 import RouterLinkButton from '@/components/molecules/RouterLinkButton.vue'
-import { setToastEvent } from '@/main'
 import useWeather from '@/store/weather'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -15,13 +14,11 @@ const weather = await getWeather({ id: route.params.id as string, units: 'metric
 
 function save() {
   saveWeather(weather)
-  setToastEvent({ severity: 'success', summary: 'Weather Saved', life: 3000 })
   router.push('/')
 }
 
 function remove() {
   discardWeather(weather.id)
-  setToastEvent({ severity: 'warn', summary: 'Weather Removed', life: 3000 })
   router.push('/')
 }
 </script>
