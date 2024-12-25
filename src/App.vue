@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router'
 
 <template>
   <Toast position="top-left" />
-  <Suspense>
+  <Suspense suspensible>
     <RouterView />
   </Suspense>
 </template>
