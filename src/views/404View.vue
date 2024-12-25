@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-function backToHome() {
+async function backToHome() {
   router.push('/')
 }
 </script>
