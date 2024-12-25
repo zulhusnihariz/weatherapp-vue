@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const restcountries = axios.create({
-  baseURL: `https://restcountries.com/v3.1/alpha`,
+  baseURL: import.meta.env.VITE_REST_COUNTRIES_BASEURL,
   timeout: 5000,
 })
 

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const openweatherapi = axios.create({
-  baseURL: `${import.meta.env.VITE_OPEN_WEATHER_BASE_URL}`,
+  baseURL: `${import.meta.env.VITE_OPEN_WEATHER_BASEURL}`,
   timeout: 5000,
 })
 
