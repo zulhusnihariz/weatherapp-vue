@@ -1,0 +1,1 @@
+import{y as a,c as s,k as e,a3 as c,o as r}from"./index-npfRokES.js";const u={id:"main-not-found"},d=a({__name:"404View",setup(i){const t=c();async function n(){t.push("/")}return(m,o)=>(r(),s("main",u,[o[0]||(o[0]=e("h1",null,"Page Not Found",-1)),e("p",{id:"back to home",role:"button",onClick:n},"Back to home")]))}});export{d as default};
