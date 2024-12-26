@@ -104,12 +104,18 @@ watch(search, async (query) => {
   outline: none;
 }
 
+#input-list-container li {
+  background-color: white;
+  color: black;
+}
+
 .pi-times-circle {
   position: absolute;
   z-index: 3;
   right: 0;
   padding-top: 0.7em;
   padding-right: 0.7em;
+  cursor: pointer;
 }
 
 .pi-search {

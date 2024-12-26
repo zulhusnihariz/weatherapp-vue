@@ -40,6 +40,7 @@ const { forecast } = defineProps<Props>()
   align-items: center;
   border-radius: 12px;
   background: #d2dfff;
+  cursor: pointer;
 }
 
 .day-condition-container {
