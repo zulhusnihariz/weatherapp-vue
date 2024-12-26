@@ -1,45 +1,74 @@
-# weatherapp-vue
+# Weather App
 
-This template should help get you started developing with Vue 3 in Vite.
+A simple weather application built using **Vue 3 CLI** and **Vite**. This app allows users to check the weather of various cities, retrieve current weather, hourly forecasts and weekly forecasts informations
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Current weather information via the [OpenWeather API](https://openweathermap.org/).
+- Country data powered by the [REST Countries API](https://restcountries.com/).
+- City and country code data provided by a custom Go API hosted on Render [City & Country Code API](https://go-countries.onrender.com).
 
-## Type Support for `.vue` Imports in TS
+## Prerequisites
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+Before you begin, ensure you have the following installed:
 
-## Customize configuration
+- [Node.js](https://nodejs.org/) (v16 or higher recommended)
+- [Vue CLI](https://cli.vuejs.org/)
+- An API key for the [OpenWeather API](https://home.openweathermap.org/users/sign_up).
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Installation
 
-## Project Setup
+1. **Clone the repository**
 
-```sh
-npm install
-```
+   ```bash
+   git clone https://github.com/yourusername/weather-app.git
+   cd weather-app
+   ```
 
-### Compile and Hot-Reload for Development
+2. **Install dependencies**
 
-```sh
-npm run dev
-```
+   ```bash
+   npm install
+   ```
 
-### Type-Check, Compile and Minify for Production
+3. **Set up environment variables**
 
-```sh
-npm run build
-```
+   Create a `.env` file in the root directory. Use the provided `.env.example` file as template.
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+   Plug in your OpenWeather API key `VITE_OPEN_WEATHER_APIKEY={your_api_key}`.
 
-```sh
-npm run test:unit
-```
+4. **Start the development server**
 
-### Lint with [ESLint](https://eslint.org/)
+   ```bash
+   npm run dev
+   ```
 
-```sh
-npm run lint
-```
+   The application will be available at `http://localhost:5173`.
+
+## Usage
+
+### OpenWeather API
+
+Ensure you have a valid OpenWeather API key configured in your `.env` file. The app uses this key to fetch real-time weather data.
+
+### REST Countries API
+
+This API is used to retrieve country information. No setup is required for this dependency.
+
+### Go API
+
+The Go API is used to search city list and country code by timezone. It is hosted on Render. Note:
+
+- The Go API will automatically **timeout after 15 minutes** of inactivity.
+- The first request after a timeout may take longer to process while the API restarts.
+- You can verify if the API is active by visiting its base URL (`https://go-countries.onrender.com?query=Malaysia`)
+  directly in your browser or using tools like `curl` or Postman.
+
+## Scripts
+
+| Command         | Description                   |
+| --------------- | ----------------------------- |
+| `npm run dev`   | Start the development server. |
+| `npm run build` | Build the app for production. |
+| `npm run serve` | Serve the production build.   |
+| `npm run lint`  | Lint and fix source files.    |
