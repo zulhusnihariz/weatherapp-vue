@@ -6,7 +6,7 @@ A simple weather application built using **Vue 3 CLI** and **Vite**. This app al
 
 - Current weather information via the [OpenWeather API](https://openweathermap.org/).
 - Country data powered by the [REST Countries API](https://restcountries.com/).
-- City and country code data provided by a custom Go API hosted on Render [City & Country Code API](https://go-countries.onrender.com).
+- City and country code data provided by a custom Go API hosted on Render [City &amp; Country Code API](https://go-countries.onrender.com).
 
 ## Prerequisites
 
@@ -44,6 +44,25 @@ Before you begin, ensure you have the following installed:
    ```
 
    The application will be available at `http://localhost:5173`.
+
+## Installation (Docker)
+
+Requirement:
+
+- WSL (for Windows)
+- Docker
+
+1. Build the docker image from docker file
+
+```
+docker build --no-cache -t weatherapp-vue/dockerize-weatherapp-vue .
+```
+
+2. Run the image on port 5173
+
+```
+docker run -it -p 5173:5173 --rm --name dockerize-weatherapp-vue-1 weatherapp-vue/dockerize-weatherapp-vue
+```
 
 ## Usage
 
